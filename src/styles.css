@@ -1,0 +1,33 @@
+.App {
+  /* display: flex; */
+  font-family: sans-serif;
+  text-align: center;
+}
+
+header {
+  background-color: orange;
+  color: cornsilk;
+}
+
+.content {
+  /* position:absolute */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.note {
+  /* position: relative; */
+  width: 200px;
+  padding: 10px;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #ccc;
+  margin: 16px;
+  /* border: 10px; */
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+}
