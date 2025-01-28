@@ -2,17 +2,61 @@ import "./styles.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Note from "./components/Note";
+import React, { useState } from "react";
 export default function App() {
+  const [newNote, setNew] = useState({
+    newTitle: "",
+    newDetail: "",
+  });
+  const [notes, setNotes] = useState([]);
+  function handleChange(e) {
+    const { name, value } = e.target;
+    name === "Title"
+      ? setNew((prev) => {
+          return { ...prev, newTitle: value };
+        })
+      : setNew((prev) => {
+          return { ...prev, newDetail: value };
+        });
+  }
+  function createNote(e) {
+    setNotes((prev) => {
+      return [
+        { heading: newNote.newTitle, description: newNote.newDetail },
+        ...prev,
+      ];
+    });
+    e.preventDefault();
+    setNew({ newTitle: "", newDetail: "" });
+  }
   return (
     <div className="App">
       <Header />
+      <form onSubmit={createNote}>
+        <input
+          name="Title"
+          type="text"
+          onChange={handleChange}
+          placeholder="Enter Title"
+          value={newNote.newTitle}
+        />
+        <input
+          name="Details"
+          type="text"
+          onChange={handleChange}
+          placeholder="Enter Details"
+          value={newNote.newDetail}
+        />
+        <button className="submitButton" type="submit">
+          Create Note
+        </button>
+      </form>
       <div className="content">
-        <Note title="Title1" details="This is Note1" />
-        <Note title="Title2" details="This is Note2" />
-        <Note title="Title3" details="This is Note3" />
-        <Note title="Title4" details="This is Note4" />
-        <Note title="Title5" details="This is Note5" />
-        <Note title="Title6" details="This is Note6" />
+        {notes &&
+          notes.map((note) => (
+            <Note title={note.heading} details={note.description} />
+          ))}
+        {console.log(notes)}
       </div>
       <Footer />
     </div>
